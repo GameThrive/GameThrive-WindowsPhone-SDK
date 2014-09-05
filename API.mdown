@@ -22,7 +22,7 @@ List of Delegates
 ## Methods
 <a name="Init" />
 #### Init
-Only required method you call to setup GameThrive to recieve push notifications. Call this on the first scene that is loaded.
+Only required method you call to setup GameThrive to recieve push notifications. Must be called from OnNavigatedTo and on any page your app can start from. For most basic games/apps you will just add it to MainPage.xaml.cs.
 
 - ##### Parameters
  - __`string` _appId___ - Your GameThrive app id from gamethrive.com
@@ -32,7 +32,10 @@ Only required method you call to setup GameThrive to recieve push notifications.
 - __Example__
 
 	````CSharp
-	GameThrive.Init("5eb5a37e-b458-11e3-ac11-000c2940e62c", ReceivedNotification);
+	protected override void OnNavigatedTo(NavigationEventArgs navEventArgs) {
+            base.OnNavigatedTo(navEventArgs);
+            GameThrive.Init("5eb5a37e-b458-11e3-ac11-000c2940e62c", ReceivedNotification);
+        }
 	````
 
 <a name="sendTag" />
@@ -41,7 +44,7 @@ Tag a player based on a game event of your choosing so later you can create segm
 
 - ##### Parameters
  - __`string` _key___ - Key of your choosing to create or update.
-   - _NOTE:_ Passing in a blank String deletes the key, you can also call deleteTag.
+   - _NOTE:_ Passing in a blank string deletes the key, you can also call DeleteTag.
  - __`string` _value___ - Value to set on the key.
 
  
@@ -56,8 +59,8 @@ Tag a player based on a game event of your choosing so later you can create segm
 Tag a player based on a game event of your choosing so later you can create segments on [gamethrive.com](https://gamethrive.com) to target these players.
 
 - ##### Parameters
- - __`IDictionary<string, string>` OR `IDictionary<string, int>` OR `IDictionary<string, object>`  _key___ - Keys and values of your choosing to create or update.
-   - _NOTE:_ Passing in a blank string deletes the key, you can also call DeleteTag.
+ - __`IDictionary<string, string>` OR `IDictionary<string, int>` OR `IDictionary<string, object>`  _keyValuePairs___ - Keys and values of your choosing to create or update.
+   - _NOTE:_ Passing in a blank string deletes the key, you can also call DeleteTag or DeleteTags.
 
  
 - __Example__
@@ -109,7 +112,7 @@ Deletes a tag that was previously set on a player with `sendTag`. Use DeleteTags
 Deletes a tag that was previously set on a player with `SendTag` or `SendTags`.
 
 - ##### Parameters
- - __`IList<string> tags` _key___ - Keys to remove.
+ - __`IList<string> tags` _keys___ - Keys to remove.
    
  
 - __Example__
@@ -164,7 +167,7 @@ Delegate you can define to process information on the notification the user just
      - __`boolean` _isActive___ - True if your app was currently being used when a notification came in.
    
  
-- __Example(C#)__
+- __Example__
 
 	````CSharp
 	private static void ReceivedNotification((IDictionary<string, string> additionalData, bool isActive) {
@@ -188,8 +191,8 @@ Delegate you can define to process information on the notification the user just
 Delegate you can define to get the GameThrive playerId and Google registration Id or an iOS push token.
 
    - __Parameters__
-     - __`String` _playerId___ - GameThrive playerId is a UUID formatted string.(_unique per device per app_)
-     - __`String` _pushToken___ - Microsoft Channel Uri(_unique per device per app_).
+     - __`string` _playerId___ - GameThrive playerId is a UUID formatted string.(_unique per device per app_)
+     - __`string` _pushToken___ - Microsoft Channel Uri(_unique per device per app_).
       - _NOTE:_ Might be blank if there was a connection issue with Microsoft.
  
 - __Example__
