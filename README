@@ -1,7 +1,0 @@
-GameThrive Windows Phone Push Notification SDK
-===============
-
-GameThrive is a free push notification service for mobile apps. This SDK makes it easy to integrate your Windows Phone app with GameThrive.
-
-See http://docs.gamethrive.com/article/37-install-the-gamethrive-windows-phone-sdk for setup documentation.
-See https://github.com/GameThrive/GameThrive-WindowsPhone-SDK/blob/master/API.mdown for GameThrive API documentation.
